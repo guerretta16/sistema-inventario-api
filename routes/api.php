@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\ProductoController;
 
 /*
@@ -31,4 +32,10 @@ Route::controller(ProductoController::class)->group(function(){
     Route::post('/producto', 'store');
     Route::put('/producto/{producto}', 'update');
     Route::delete('/producto/{id}', 'delete');
+    Route::get('/producto/{id}', 'showProducto');
+});
+
+Route::controller(CategoriaController::class)->group(function(){
+    Route::get('/categoria', 'index');
+    
 });

@@ -8,38 +8,38 @@ class ValidarInformacion
 {
 
     public static function validarInformacionProducto($data)
-    {
-        if (!isset($data['idCategoria'])) {
+    {   
+        if (is_null($data->input('idCategoria')) || $data->input('idCategoria') === "") {
             return MessageError::messageDescriptionError(
                 'Error',
                 'La categoria es obligatoria'
             );
         }
-        if (!isset($data['nombre_prod'])) {
+        if (is_null($data->input('nombre_prod'))) {
             return MessageError::messageDescriptionError(
                 'Error',
                 'El nombre es obligatorio'
             );
         }
-        if (!isset($data['codigo_prod'])) {
+        if (is_null($data->input('codigo_prod'))) {
             return MessageError::messageDescriptionError(
                 'Error',
                 'El codigo es obligatorio'
             );
         }
-        if (!isset($data['descripcion_prod'])) {
+        if (is_null($data->input('descripcion_prod'))) {
             return MessageError::messageDescriptionError(
                 'Error',
                 'La descripcion es obligatorio'
             );
         }
-        if (!isset($data['precio'])) {
+        if (is_null($data->input('precio'))) {
             return MessageError::messageDescriptionError(
                 'Error',
                 'El precio es obligatorio'
             );
         }
-        if (!isset($data['stock'])) {
+        if (is_null($data->input('stock'))) {
             return MessageError::messageDescriptionError(
                 'Error',
                 'El stock es obligatorio'
@@ -50,31 +50,31 @@ class ValidarInformacion
 
     public static function validarInformacionProductoUp($data)
     {
-        if (!isset($data['idCategoria'])) {
+        if (is_null($data->input('idCategoria')) || $data->input('idCategoria') === "") {
             return MessageError::messageDescriptionError(
                 'Error',
                 'La categoria es obligatoria'
             );
         }
-        if (!isset($data['nombre_prod'])) {
+        if (is_null($data->input('nombre_prod'))) {
             return MessageError::messageDescriptionError(
                 'Error',
                 'El nombre es obligatorio'
             );
         }
-        if (!isset($data['descripcion_prod'])) {
+        if (is_null($data->input('descripcion_prod'))) {
             return MessageError::messageDescriptionError(
                 'Error',
                 'La descripcion es obligatorio'
             );
         }
-        if (!isset($data['precio'])) {
+        if (is_null($data->input('precio'))) {
             return MessageError::messageDescriptionError(
                 'Error',
                 'El precio es obligatorio'
             );
         }
-        if (!isset($data['stock'])) {
+        if (is_null($data->input('stock'))) {
             return MessageError::messageDescriptionError(
                 'Error',
                 'El stock es obligatorio'

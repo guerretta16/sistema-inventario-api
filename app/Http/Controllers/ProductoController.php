@@ -28,18 +28,16 @@ class ProductoController extends Controller
         }
 
         $producto = new Producto;
-        $producto->idCategoria = $request->post('idCategoria');
-        $producto->codigo_prod = $request->post('codigo_prod');
-        $producto->nombre_prod = $request->post('nombre_prod');
-        $producto->descripcion_prod = $request->post('descripcion_prod');
-        $producto->precio = $request->post('precio');
-        $producto->stock = $request->post('stock');
+        $producto->idCategoria = $request->input('idCategoria');
+        $producto->codigo_prod = $request->input('codigo_prod');
+        $producto->nombre_prod = $request->input('nombre_prod');
+        $producto->descripcion_prod = $request->input('descripcion_prod');
+        $producto->precio = $request->input('precio');
+        $producto->stock = $request->input('stock');
         $producto->created_at = Carbon::now();
 
         try {
-
             if ($request->hasFile('image')) {
-
                 $allowedfileExtension = ['jpg', 'png'];
                 $imagenes = $request->file('image');
                 $path = "public/images/products";
@@ -50,7 +48,7 @@ class ProductoController extends Controller
                     $extension = $imagen->getClientOriginalExtension();
                     $check = in_array($extension, $allowedfileExtension);
                     if ($check) {
-                        $nombreImage = $request->post('nombre_prod') . "-" . time() . "-" . $index . "." . $extension;
+                        $nombreImage = $request->input('nombre_prod') . "-" . time() . "-" . $index . "." . $extension;
                         $withoutBlank = str_replace(' ', '-', $nombreImage);
                         $nombreLower = strtolower($withoutBlank);
                         $url = $imagen->storeAs($path, $nombreLower);
@@ -79,11 +77,11 @@ class ProductoController extends Controller
             return $responseValidate;
         }
 
-        $producto->idCategoria = $request->post('idCategoria');
-        $producto->nombre_prod = $request->post('nombre_prod');
-        $producto->descripcion_prod = $request->post('descripcion_prod');
-        $producto->precio = $request->post('precio');
-        $producto->stock = $request->post('stock');
+        $producto->idCategoria = $request->input('idCategoria');
+        $producto->nombre_prod = $request->input('nombre_prod');
+        $producto->descripcion_prod = $request->input('descripcion_prod');
+        $producto->precio = $request->input('precio');
+        $producto->stock = $request->input('stock');
         $producto->updated_at = Carbon::now();
 
         try {
@@ -109,7 +107,7 @@ class ProductoController extends Controller
                     $extension = $imagen->getClientOriginalExtension();
                     $check = in_array($extension, $allowedfileExtension);
                     if ($check) {
-                        $nombreImage = $request->post('nombre_prod') . "-" . time() . "-" . $index . "." . $extension;
+                        $nombreImage = $request->input('nombre_prod') . "-" . time() . "-" . $index . "." . $extension;
                         $withoutBlank = str_replace(' ', '-', $nombreImage);
                         $nombreLower = strtolower($withoutBlank);
                         $url = $imagen->storeAs($path, $nombreLower);
@@ -146,5 +144,11 @@ class ProductoController extends Controller
         } catch (Exception $ex) {
             error_log($ex->getMessage());
         }
+    }
+
+    public function showProducto($id){
+        $producto = Producto::find($id);
+        $producto->categoria = Producto::find($id)->categoria->nombre_cat;
+        return $producto;
     }
 }
